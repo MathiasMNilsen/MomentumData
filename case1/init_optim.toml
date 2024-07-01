@@ -1,0 +1,37 @@
+[ensemble]
+    ne = 20 
+    state = 'injrate'
+    transform = true
+    prior_injrate = [['mean', 'init_injrate.npz'],
+                     ['var', 22.5],
+                     ['limits', 0, 150]]
+
+[optim]
+    maxiter = 30
+    tol     = 0.0001
+    alpha   = 0.1
+    beta    = 0.0
+    alpha_maxiter = 5
+    optimizer     = 'GA'
+    resample      = 1
+    restartsave   = true
+    restart       = false
+    hessian       = false
+    nesterov      = false
+    save_folder   = './results'
+
+[fwdsim]
+    npv_const = [['wop', 300],
+                 ['wgp', 0],
+                 ['wwp', 40],
+                 ['wwi', 10],
+                 ['disc', 0.1],
+                 ['obj_scaling', -1E7]]
+
+    parallel    = 20
+    sim_flag    ='--min-time-step-before-shutting-problematic-wells-in-days=10 --time-step-after-event-in-days=10 --enable-well-operability-check=false --enable-tuning=true --tolerance-mb=1e-04'
+    runfile     = 'EGG_MODEL'
+    startdate   = '15/6/2011'
+    reportpoint = 'report_dates.csv'
+    reporttype  = 'dates' 
+    datatype    = ['fopt', 'fgpt', 'fwpt', 'fwit']
